@@ -33,7 +33,6 @@
 
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
-#include <opencv2/highgui.hpp>
 #include <fstream>
 #include <iostream>
 #include <valarray>
@@ -796,7 +795,7 @@ void MarkerDetector::detect(const cv::Mat& input, std::vector<Marker>& detectedM
           for (int c = 0; c < 4; c++)
             Corners.push_back(detectedMarkers[i][c]);
         cornerSubPix(grey, Corners, Size(halfwsize, halfwsize), Size(-1, -1),
-                     TermCriteria( TermCriteria::MAX_ITER+TermCriteria::EPS, 12, 0.005));
+                     cv::TermCriteria(cv::TermCriteria::MAX_ITER|cv::TermCriteria::EPS, 12, 0.005));
        
         // copy back
         for (unsigned int i = 0; i < detectedMarkers.size(); i++)
@@ -1133,7 +1132,7 @@ void MarkerDetector::cornerUpsample_SUBP(std::vector<Marker>& MarkerCanditates, 
       }
 
     cv::cornerSubPix(imagePyramid[curpyr], p2d, cv::Size(halfwsize, halfwsize), cv::Size(-1, -1),
-                     TermCriteria(TermCriteria::MAX_ITER, 4, 0.5));
+                     cv::TermCriteria(cv::TermCriteria::MAX_ITER, 4, 0.5));
     int cidx = 0;
     for (auto &m : MarkerCanditates)
       for (auto &point : m)
