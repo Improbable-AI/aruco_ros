@@ -248,7 +248,7 @@ std::vector<MarkerDetector::MarkerCandidate> MarkerDetector::thresholdAndDetectR
   // if image is eroded, minSize must be adapted
   std::vector<cv::Vec4i> hierarchy;
   std::vector<std::vector<cv::Point>> contours;
-  cv::findContours(auxThresImage, contours, cv::noArray(), CV_RETR_LIST, CV_CHAIN_APPROX_NONE);
+  cv::findContours(auxThresImage, contours, cv::noArray(), RETR_LIST, CHAIN_APPROX_NONE);
   tev.add("find-cont");
   std::vector<cv::Point> approxCurve;
 
@@ -560,7 +560,7 @@ void MarkerDetector::detect(const cv::Mat& input, std::vector<Marker>& detectedM
 
   // it must be a 3 channel image
   if (input.type() == CV_8UC3)
-    cv::cvtColor(input, grey, CV_BGR2GRAY);
+    cv::cvtColor(input, grey, COLOR_BGR2GRAY);
 //  convertToGray(input, grey);
   else
     grey = input;
@@ -794,8 +794,8 @@ void MarkerDetector::detect(const cv::Mat& input, std::vector<Marker>& detectedM
         for (unsigned int i = 0; i < detectedMarkers.size(); i++)
           for (int c = 0; c < 4; c++)
             Corners.push_back(detectedMarkers[i][c]);
-        cornerSubPix(grey, Corners, cvSize(halfwsize, halfwsize), cvSize(-1, -1),
-                     cvTermCriteria(CV_TERMCRIT_ITER | CV_TERMCRIT_EPS, 12, 0.005));
+        cornerSubPix(grey, Corners, Size(halfwsize, halfwsize), Size(-1, -1),
+                     TermCriteria(MAX_ITER | EPS, 12, 0.005));
         // copy back
         for (unsigned int i = 0; i < detectedMarkers.size(); i++)
           for (int c = 0; c < 4; c++)
