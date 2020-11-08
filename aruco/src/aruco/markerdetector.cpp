@@ -1187,10 +1187,10 @@ void MarkerDetector::draw(cv::Mat out, const std::vector<Marker>& markers)
 {
   for (unsigned int i = 0; i < markers.size(); i++)
   {
-    cv::line(out, markers[i][0], markers[i][1], cvScalar(255, 0, 0), 2, cv::LINE_AA);
-    cv::line(out, markers[i][1], markers[i][2], cvScalar(255, 0, 0), 2, cv:LINE_AA);
-    cv::line(out, markers[i][2], markers[i][3], cvScalar(255, 0, 0), 2, cv:LINE_AA);
-    cv::line(out, markers[i][3], markers[i][0], cvScalar(255, 0, 0), 2, cv:LINE_AA);
+    cv::line(out, markers[i][0], markers[i][1], cv::Scalar(255, 0, 0), 2, cv::LINE_AA);
+    cv::line(out, markers[i][1], markers[i][2], cv::Scalar(255, 0, 0), 2, cv::LINE_AA);
+    cv::line(out, markers[i][2], markers[i][3], cv::Scalar(255, 0, 0), 2, cv::LINE_AA);
+    cv::line(out, markers[i][3], markers[i][0], cv::Scalar(255, 0, 0), 2, cv::LINE_AA);
   }
 }
 
