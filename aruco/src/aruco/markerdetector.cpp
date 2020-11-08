@@ -248,7 +248,7 @@ std::vector<MarkerDetector::MarkerCandidate> MarkerDetector::thresholdAndDetectR
   // if image is eroded, minSize must be adapted
   std::vector<cv::Vec4i> hierarchy;
   std::vector<std::vector<cv::Point>> contours;
-  cv::findContours(auxThresImage, contours, cv::noArray(), RETR_LIST, CHAIN_APPROX_NONE);
+  cv::findContours(auxThresImage, contours, cv::noArray(), cv::RETR_LIST, cv::CHAIN_APPROX_NONE);
   tev.add("find-cont");
   std::vector<cv::Point> approxCurve;
 
@@ -560,7 +560,7 @@ void MarkerDetector::detect(const cv::Mat& input, std::vector<Marker>& detectedM
 
   // it must be a 3 channel image
   if (input.type() == CV_8UC3)
-    cv::cvtColor(input, grey, COLOR_BGR2GRAY);
+    cv::cvtColor(input, grey, cv::COLOR_BGR2GRAY);
 //  convertToGray(input, grey);
   else
     grey = input;
@@ -794,7 +794,7 @@ void MarkerDetector::detect(const cv::Mat& input, std::vector<Marker>& detectedM
         for (unsigned int i = 0; i < detectedMarkers.size(); i++)
           for (int c = 0; c < 4; c++)
             Corners.push_back(detectedMarkers[i][c]);
-        cornerSubPix(grey, Corners, Size(halfwsize, halfwsize), Size(-1, -1),
+        cornerSubPix(grey, Corners, cv::Size(halfwsize, halfwsize), cv::Size(-1, -1),
                      cv::TermCriteria(cv::TermCriteria::MAX_ITER|cv::TermCriteria::EPS, 12, 0.005));
        
         // copy back
@@ -1187,10 +1187,10 @@ void MarkerDetector::draw(cv::Mat out, const std::vector<Marker>& markers)
 {
   for (unsigned int i = 0; i < markers.size(); i++)
   {
-    cv::line(out, markers[i][0], markers[i][1], cvScalar(255, 0, 0), 2, CV_AA);
-    cv::line(out, markers[i][1], markers[i][2], cvScalar(255, 0, 0), 2, CV_AA);
-    cv::line(out, markers[i][2], markers[i][3], cvScalar(255, 0, 0), 2, CV_AA);
-    cv::line(out, markers[i][3], markers[i][0], cvScalar(255, 0, 0), 2, CV_AA);
+    cv::line(out, markers[i][0], markers[i][1], cvScalar(255, 0, 0), 2, cv::LINE_AA);
+    cv::line(out, markers[i][1], markers[i][2], cvScalar(255, 0, 0), 2, cv:LINE_AA);
+    cv::line(out, markers[i][2], markers[i][3], cvScalar(255, 0, 0), 2, cv:LINE_AA);
+    cv::line(out, markers[i][3], markers[i][0], cvScalar(255, 0, 0), 2, cv:LINE_AA);
   }
 }
 
